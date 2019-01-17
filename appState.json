@@ -1,0 +1,85 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "19130ff6-fa6a-481d-9906-053fb2ada6f6": {
+        "id": "19130ff6-fa6a-481d-9906-053fb2ada6f6",
+        "parent": null,
+        "name": "KV1",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "6afc6404-4cad-4be1-b66f-b90181e8ba76"
+        ],
+        "isRemovable": false,
+        "filePath": "KV1"
+      },
+      "6afc6404-4cad-4be1-b66f-b90181e8ba76": {
+        "id": "6afc6404-4cad-4be1-b66f-b90181e8ba76",
+        "parent": "19130ff6-fa6a-481d-9906-053fb2ada6f6",
+        "name": "lambda.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "KV1/lambda.js",
+        "code": "let Swagger = require('swagger-client');\n\nexports.handler = function (event, context, callback) {\n    // read from event, run your logic; complete via callback(<error, or null on success>, <JSON result on success>)\n\n    Swagger.http({\n        url: `https://services.dev.fintechmart.online/api-sandbox/application/token`,\n        method: 'post',\n        query: {},\n        headers: { \"Accept\": \"*/*\", \"Content-Type\": \"application/json\" },\n        body: JSON.stringify({\n            password: \"Jupiter!123\",\n            userName: \"n12kumar@mail.com\"\n        })\n    }).then((response) => {\n        if (response.status !== 200) {\n            throw new Error(`Bad response from server: ${response.status}; ${response.data}`);\n        }\n        callback(null, JSON.parse(response.data));\n    }).catch((err) => {\n        callback(err);\n    });\n}",
+        "triggers": [],
+        "config": {
+          "runtime": "nodejs8.10",
+          "timeout": 60,
+          "memory": 128
+        },
+        "testCases": {
+          "f8b96369-224a-462f-ac58-a81ef7d461b4": {
+            "id": "f8b96369-224a-462f-ac58-a81ef7d461b4",
+            "name": "Unnamed event",
+            "functionId": "6afc6404-4cad-4be1-b66f-b90181e8ba76",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "19130ff6-fa6a-481d-9906-053fb2ada6f6",
+    "openFiles": [
+      "6afc6404-4cad-4be1-b66f-b90181e8ba76"
+    ],
+    "currentFileId": "6afc6404-4cad-4be1-b66f-b90181e8ba76",
+    "resources": {},
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "swagger-client": {
+          "name": "swagger-client",
+          "version": "3.8.21"
+        }
+      }
+    },
+    "lambdaId": "6afc6404-4cad-4be1-b66f-b90181e8ba76"
+  },
+  "PROJECT_META": {
+    "projectName": "KV1",
+    "projectDescription": "default code",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1547716622073
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "KV1",
+      "url": "https://github.com/Kumudikatest/KV1"
+    }
+  }
+}
