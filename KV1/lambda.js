@@ -12,8 +12,8 @@ exports.handler = function (event, context, callback) {
         query: {},
         headers: { "Accept": "*/*", "Content-Type": "application/json" },
         body: JSON.stringify({
-            password: "Jupiter!123",
-            userName: "n12kumar@mail.com"
+            password: process.env.password,
+            userName: process.env.userName
         })
     }).then((response) => {
         if (response.status !== 200) {
@@ -28,7 +28,7 @@ exports.handler = function (event, context, callback) {
     axios.get("http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportGroupsSample.csv").then(response => {
         csvData.dataSet1 = csvjson.toObject(response.data, {});
 
-        var result = jsonQuery('dataSet1[Groupcode=7thgrade]', {
+        var result = jsonQuery('dataSet1[GroupName=System Administrators]', {
             data: csvData
         }).value;
 

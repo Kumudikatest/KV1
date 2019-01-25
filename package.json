@@ -5,6 +5,7 @@
     "swagger-client": "3.8.21",
     "axios": "0.17.1",
     "csvjson": "5.1.0",
-    "json-query": "2.2.2"
+    "json-query": "2.2.2",
+    "slappforge-sdk-xml": "0.0.5"
   }
 }
