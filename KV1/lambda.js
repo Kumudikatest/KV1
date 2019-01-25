@@ -25,14 +25,15 @@ exports.handler = function (event, context, callback) {
     });
 
     let csvData = {};
-    axios.get("add your CSV URL here").then(response => {
+    axios.get("http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportGroupsSample.csv").then(response => {
         csvData.dataSet1 = csvjson.toObject(response.data, {});
 
         var result = jsonQuery('dataSet1[Product=Product2]', {
             data: csvData
         }).value;
 
-        callback(null, result);
+        //callback(null, result);
+        console.log(result);
     });
 
 
