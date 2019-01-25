@@ -28,7 +28,7 @@ exports.handler = function (event, context, callback) {
     axios.get("http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportGroupsSample.csv").then(response => {
         csvData.dataSet1 = csvjson.toObject(response.data, {});
 
-        var result = jsonQuery('dataSet1[Product=Product2]', {
+        var result = jsonQuery('dataSet1[Groupcode=7thgrade]', {
             data: csvData
         }).value;
 
