@@ -22,8 +22,13 @@
         "children": [],
         "isRemovable": true,
         "filePath": "KV1/lambda.js",
-        "code": "let Swagger = require('swagger-client');\n\nexports.handler = function (event, context, callback) {\n    // read from event, run your logic; complete via callback(<error, or null on success>, <JSON result on success>)\n\n    Swagger.http({\n        url: `https://services.dev.fintechmart.online/api-sandbox/application/token`,\n        method: 'post',\n        query: {},\n        headers: { \"Accept\": \"*/*\", \"Content-Type\": \"application/json\" },\n        body: JSON.stringify({\n            password: \"Jupiter!123\",\n            userName: \"n12kumar@mail.com\"\n        })\n    }).then((response) => {\n        if (response.status !== 200) {\n            throw new Error(`Bad response from server: ${response.status}; ${response.data}`);\n        }\n        callback(null, JSON.parse(response.data));\n    }).catch((err) => {\n        callback(err);\n    });\n}",
-        "triggers": [],
+        "code": "let axios = require('axios');\nlet csvjson = require('csvjson');\nlet jsonQuery = require('json-query');\nlet Swagger = require('swagger-client');\n\nexports.handler = function (event, context, callback) {\n    // read from event, run your logic; complete via callback(<error, or null on success>, <JSON result on success>)\n\n    Swagger.http({\n        url: `https://services.dev.fintechmart.online/api-sandbox/application/token`,\n        method: 'post',\n        query: {},\n        headers: { \"Accept\": \"*/*\", \"Content-Type\": \"application/json\" },\n        body: JSON.stringify({\n            password: \"Jupiter!123\",\n            userName: \"n12kumar@mail.com\"\n        })\n    }).then((response) => {\n        if (response.status !== 200) {\n            throw new Error(`Bad response from server: ${response.status}; ${response.data}`);\n        }\n        callback(null, JSON.parse(response.data));\n    }).catch((err) => {\n        callback(err);\n    });\n\n    let csvData = {};\n    axios.get(\"add your CSV URL here\").then(response => {\n        csvData.dataSet1 = csvjson.toObject(response.data, {});\n\n        var result = jsonQuery('dataSet1[Product=Product2]', {\n            data: csvData\n        }).value;\n\n        callback(null, result);\n    });\n\n\n}",
+        "triggers": [
+          {
+            "resourceName": "apigusEast1TestAPIpatch",
+            "config": {}
+          }
+        ],
         "config": {
           "runtime": "nodejs8.10",
           "timeout": 60,
@@ -45,7 +50,38 @@
       "6afc6404-4cad-4be1-b66f-b90181e8ba76"
     ],
     "currentFileId": "6afc6404-4cad-4be1-b66f-b90181e8ba76",
-    "resources": {},
+    "resources": {
+      "apigusEast1TestAPIpatch": {
+        "name": "apigusEast1TestAPIpatch",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 1,
+          "apiName": "TestAPI",
+          "apiId": "0itznun7w3",
+          "endpointType": "EDGE",
+          "rootResourceId": "h2lelj6j7k",
+          "existingResources": {
+            "/MyLambda": "98nqbj",
+            "/": "h2lelj6j7k",
+            "/testtwospeciallambda": "q4szm3",
+            "/1234": "s8tcca",
+            "/testtwospecialkumutest": "wey3lk"
+          },
+          "resourceMode": 1,
+          "resourcePath": "/",
+          "resourceName": "",
+          "resourceId": "h2lelj6j7k",
+          "restMethod": "PATCH",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 1,
+          "stageName": "test",
+          "stageDeploymentId": "j6guv4"
+        },
+        "globallyEditable": false
+      }
+    },
     "envVariables": [
       {
         "lambdaId": "all",
@@ -61,6 +97,21 @@
         "swagger-client": {
           "name": "swagger-client",
           "version": "3.8.21"
+        },
+        "axios": {
+          "name": "axios",
+          "version": "0.17.1",
+          "notRemovable": false
+        },
+        "csvjson": {
+          "name": "csvjson",
+          "version": "5.1.0",
+          "notRemovable": false
+        },
+        "json-query": {
+          "name": "json-query",
+          "version": "2.2.2",
+          "notRemovable": false
         }
       }
     },
@@ -73,7 +124,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1547716622073
+    "lastSave": 1548409612353
   },
   "VCS_STATE": {
     "provider": "GitHub",

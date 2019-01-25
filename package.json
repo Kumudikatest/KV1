@@ -2,6 +2,9 @@
   "name": "KV1",
   "version": "1.0.0",
   "dependencies": {
-    "swagger-client": "3.8.21"
+    "swagger-client": "3.8.21",
+    "axios": "0.17.1",
+    "csvjson": "5.1.0",
+    "json-query": "2.2.2"
   }
 }
